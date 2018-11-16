@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Test</string>
+    <string name="edit_message">Enter a message</string>
+    <string name="button_connect">Connect</string>
+    <string name="button_disconnect">Disconnect</string>
+    <string name="button_getdirectory">Get directory</string>
+    <string name="textview_dot">.</string>
+    <string name="edittext_hint">255</string>
+    <string name="textview_server">Server Address</string>
+    <string name="textview_colon">:</string>
+    <string name="edittext_port_hint">3721</string>
+</resources>
