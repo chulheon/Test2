@@ -3,6 +3,7 @@ package com.example.chulheon.test;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -18,17 +19,19 @@ public class MainActivity extends AppCompatActivity {
     private Editable ip2;
     private Editable ip3;
     private Editable ip4;
-    private int port;
+    private Editable port;
+    private Editable ID;
+    private Editable password;
     private ConnectFTP ConnectFTP;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        final EditText edittext = (EditText) findViewById(R.id.editText2);
-        setOnKeyListener(edittext);
-        setOnFocusChangeListener(edittext);
+/*
+        final EditText edittext2 = (EditText) findViewById(R.id.editText2);
+        setOnKeyListener(edittext2);
+        setOnFocusChangeListener(edittext2);
 
         final EditText edittext3 = (EditText) findViewById(R.id.editText3);
         setOnKeyListener(edittext3);
@@ -44,8 +47,16 @@ public class MainActivity extends AppCompatActivity {
 
         final EditText edittext6 = (EditText) findViewById(R.id.editText6);
         setOnKeyListener(edittext6);
-        setOnFocusChangeListener(edittext5);
+        setOnFocusChangeListener(edittext6);
 
+        final EditText edittext = (EditText) findViewById(R.id.editText);
+        setOnKeyListener(edittext);
+        setOnFocusChangeListener(edittext);
+
+        final EditText edittext7 = (EditText) findViewById(R.id.editText7);
+        setOnKeyListener(edittext7);
+        setOnFocusChangeListener(edittext7);
+     */
          /*
         new Thread(new Runnable() {
             public void run() {
@@ -71,12 +82,12 @@ public class MainActivity extends AppCompatActivity {
         }).start();
         */
     }
-
+/*
     public void setOnKeyListener(final EditText edittext){
         edittext.setOnKeyListener(new View.OnKeyListener() {
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 if ((event.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
-                    Toast.makeText(MainActivity.this, edittext.getText(), Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(MainActivity.this, edittext.getText(), Toast.LENGTH_SHORT).show();
                     if (edittext.equals((EditText) findViewById(R.id.editText2)))
                         ip1 = edittext.getText();
                     else if (edittext.equals((EditText) findViewById(R.id.editText3)))
@@ -86,7 +97,14 @@ public class MainActivity extends AppCompatActivity {
                     else if (edittext.equals((EditText) findViewById(R.id.editText5)))
                         ip4 = edittext.getText();
                     else if (edittext.equals((EditText) findViewById(R.id.editText6)))
-                        port = Integer.parseInt(edittext.getText().toString());
+                       // port = Integer.parseInt(edittext.getText().toString());
+                        port = edittext.getText();
+                    else if (edittext.equals((EditText) findViewById(R.id.editText)))
+                        ID = edittext.getText();
+                    else if (edittext.equals((EditText) findViewById(R.id.editText7)))
+                    {
+                        password = edittext.getText();
+                    }
                     return true;
                 }
                 return false;
@@ -99,9 +117,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onFocusChange(View view, boolean hasFocus) {
                 if (hasFocus) {
-                    Toast.makeText(getApplicationContext(), "Got the focus", Toast.LENGTH_LONG).show();
+                //    Toast.makeText(getApplicationContext(), "Got the focus", Toast.LENGTH_LONG).show();
                 } else {
-                    Toast.makeText(MainActivity.this, edittext.getText(), Toast.LENGTH_SHORT).show();
+                //   Toast.makeText(MainActivity.this, edittext.getText(), Toast.LENGTH_SHORT).show();
                     if (edittext.equals((EditText) findViewById(R.id.editText2)))
                         ip1 = edittext.getText();
                     else if (edittext.equals((EditText) findViewById(R.id.editText3)))
@@ -111,12 +129,18 @@ public class MainActivity extends AppCompatActivity {
                     else if (edittext.equals((EditText) findViewById(R.id.editText5)))
                         ip4 = edittext.getText();
                     else if (edittext.equals((EditText) findViewById(R.id.editText6)))
-                        port = Integer.parseInt(edittext.getText().toString());
+                        port = edittext.getText();
+                    else if (edittext.equals((EditText) findViewById(R.id.editText)))
+                        ID = edittext.getText();
+                    else if (edittext.equals((EditText) findViewById(R.id.editText7)))
+                    {
+                        password = edittext.getText();
+                    }
                 }
             }
         });
     }
-
+*/
     /** Called when the user taps the Send button */
     public void connect(View view) {
         //TEST
@@ -126,13 +150,51 @@ public class MainActivity extends AppCompatActivity {
         new Thread(new Runnable() {
             @Override
             public void run() {
+                Log.d(TAG, "try to connect");
                 boolean status = false;
+
+                final EditText edittext = (EditText) findViewById(R.id.editText);
+                final EditText edittext2 = (EditText) findViewById(R.id.editText2);
+                final EditText edittext3 = (EditText) findViewById(R.id.editText3);
+                final EditText edittext4 = (EditText) findViewById(R.id.editText4);
+                final EditText edittext5 = (EditText) findViewById(R.id.editText5);
+                final EditText edittext6 = (EditText) findViewById(R.id.editText6);
+                final EditText edittext7 = (EditText) findViewById(R.id.editText7);
+
+                if(TextUtils.isEmpty(edittext2.getText()) ||
+                TextUtils.isEmpty(edittext3.getText()) ||
+                TextUtils.isEmpty(edittext4.getText()) ||
+                TextUtils.isEmpty(edittext5.getText()) ||
+                TextUtils.isEmpty(edittext6.getText()) ||
+                TextUtils.isEmpty(edittext7.getText()) ||
+                TextUtils.isEmpty(edittext.getText())){
+                    Log.d(TAG, "check empty field");
+                    runOnUiThread(new Runnable() {
+                        public void run() {
+                            Toast.makeText(getApplicationContext(), "check empty field !!", Toast.LENGTH_LONG).show();
+                        }
+                    });
+                    return;
+                }
+
+                ip1 = edittext2.getText();
+                ip2 = edittext3.getText();
+                ip3 = edittext4.getText();
+                ip4 = edittext5.getText();
+
+                port = edittext6.getText();
+                password = edittext7.getText();
+                ID  = edittext.getText();
+
                 final String serverIP;
                 serverIP = ip1.toString() + "." + ip2.toString() + "." + ip3.toString() + "." + ip4.toString();
-                Log.d(TAG, serverIP);
+                Log.d(TAG, "IP:" + serverIP);
+                Log.d(TAG, "port:" + port.toString());
+                Log.d(TAG, "ID:" + ID.toString());
+                Log.d(TAG, "password:" + password.toString());
 
                 //status = ConnectFTP.ftpConnect("211.214.97.80", "jch", "9545", 3721);
-                status = ConnectFTP.ftpConnect(serverIP, "jch", "9545", port);
+                status = ConnectFTP.ftpConnect(serverIP, ID.toString(), password.toString(), Integer.parseInt(port.toString()));
                 if(status == true) {
                     Log.d(TAG, "Connection Success");
                     //
