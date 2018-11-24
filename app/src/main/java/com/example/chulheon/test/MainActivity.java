@@ -11,6 +11,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.airbnb.lottie.LottieAnimationView;
+
 public class MainActivity extends AppCompatActivity {
     public static final String EXTRA_MESSAGE = "com.example.myfirstapp.MESSAGE";
     private final String TAG = "Connect FTP";
@@ -202,6 +204,10 @@ public class MainActivity extends AppCompatActivity {
                         public void run() {
                             TextView textView = findViewById(R.id.textView2);
                             textView.setText("Connection Success");
+
+                            LottieAnimationView lottie = (LottieAnimationView) findViewById(R.id.lottie);
+                            lottie.playAnimation();
+                            lottie.loop(true);
                         }
                     });
                     //
@@ -236,6 +242,10 @@ public class MainActivity extends AppCompatActivity {
                         public void run() {
                             TextView textView = findViewById(R.id.textView2);
                             textView.setText("DisConnection Success");
+
+                            LottieAnimationView lottie = (LottieAnimationView) findViewById(R.id.lottie);
+                            lottie.setFrame(0);
+                            lottie.pauseAnimation();
                         }
                     });
                 }
